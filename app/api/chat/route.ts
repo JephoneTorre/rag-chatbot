@@ -7,68 +7,78 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const userMessage: string = body?.message;
+    /* =========================
+       1. READ REQUEST
+    ========================= */
 
-    if (!userMessage || !userMessage.trim()) {
+    const body = await req.json();
+    const message: string | undefined = body?.message;
+
+    if (!message || typeof message !== "string" || !message.trim()) {
       return NextResponse.json(
         { error: "No message provided" },
         { status: 400 }
       );
     }
 
-    /* ---------------- RETRIEVE CONTEXT ---------------- */
+    const cleanMessage = message.trim();
 
-    const context = retrieveContext(userMessage);
 
-    /* ---------------- BUILD SYSTEM PROMPT ---------------- */
+    /* =========================
+       2. RETRIEVE CONTEXT (RAG)
+    ========================= */
 
-    let prompt: string;
+    const context = retrieveContext(cleanMessage);
 
-    // If retriever found nothing → FORCE SAFE RESPONSE
-    if (context === "STRICT_NO_CONTEXT") {
-      prompt = `
-You are a strict knowledge base assistant.
+    // 🚫 HARD GUARD — prevents hallucinations completely
+    if (context === "NO_CONTEXT_FOUND") {
+      return NextResponse.json({
+        reply: "I don't have information about that."
+      });
+    }
 
-The database does NOT contain information to answer the question.
 
-You MUST reply exactly:
-"I don't have information about that."
+    /* =========================
+       3. BUILD PROMPT
+    ========================= */
 
-Do NOT explain.
-Do NOT guess.
-Do NOT add extra words.
-`;
-    } else {
-      // Normal RAG mode
-      prompt = `
-You are a knowledge-base assistant.
+    const prompt = `
+You are VIA, a strict knowledge-base assistant.
 
-Answer ONLY using the provided context.
-
-Rules:
-- Do NOT invent information
+RULES:
+- Answer ONLY using the provided context
 - Do NOT use outside knowledge
-- If the answer is not explicitly written in the context, reply:
-"I don't have information about that."
-- Be concise and clear
+- If the answer is not clearly in the context, reply exactly:
+  "I don't have information about that."
+
+Keep answers concise and natural.
 
 CONTEXT:
 ${context}
 
 QUESTION:
-${userMessage}
+${cleanMessage}
 `;
-    }
 
-    /* ---------------- ASK LLM ---------------- */
+
+    /* =========================
+       4. ASK LLM
+    ========================= */
 
     const reply = await askLLM(prompt);
 
-    return NextResponse.json({ reply });
+
+    /* =========================
+       5. RETURN RESPONSE
+    ========================= */
+
+    return NextResponse.json({
+      reply: reply || "I don't have information about that."
+    });
 
   } catch (err) {
     console.error("CHAT API ERROR:", err);
+
     return NextResponse.json(
       { error: "Server crashed" },
       { status: 500 }
