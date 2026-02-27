@@ -2,17 +2,22 @@ type Session = {
     lastTopic?: string;
   };
   
-  const memory = new Map<string, string>();
-
-  export function getTopic(sessionId: string) {
-    return memory.get(sessionId);
+  const sessions = new Map<string, Session>();
+  
+  function getSession(id: string): Session {
+    if (!sessions.has(id)) {
+      sessions.set(id, {});
+    }
+    return sessions.get(id)!;
   }
   
-  export function setTopic(sessionId: string, topic: string) {
-    memory.set(sessionId, topic);
-  }
-  
-  
+  /* GET LAST TOPIC */
   export function getTopic(id: string): string | undefined {
     return getSession(id).lastTopic;
+  }
+  
+  /* SAVE TOPIC */
+  export function setTopic(id: string, topic: string) {
+    const s = getSession(id);
+    s.lastTopic = topic;
   }
