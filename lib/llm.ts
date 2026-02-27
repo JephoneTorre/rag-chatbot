@@ -4,7 +4,7 @@ export async function askLLM(prompt: string): Promise<string> {
     headers: {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL!,
+      "HTTP-Referer": "https://via-ruddy-pi.vercel.app",
       "X-Title": "RAG Chatbot",
     },
     body: JSON.stringify({
