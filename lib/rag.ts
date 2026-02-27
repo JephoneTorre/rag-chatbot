@@ -1,5 +1,6 @@
 import melinda from "@/app/data/melinda.json";
 import xfinite from "@/app/data/xfinite.json";
+import clients from "@/app/data/clients.json";
 
 type KBItem = {
   title: string;
@@ -12,15 +13,28 @@ type KBItem = {
 const KB: KBItem[] = [
   ...melinda.map(x => ({ ...x, source: "melinda" })),
   ...xfinite.map(x => ({ ...x, source: "xfinite" })),
+  ...clients.map(x => ({ ...x, source: "clients" })),
 ];
+
+const MEANING: Record<string,string[]> = {
+  pay: ["salary","income","earn","earnings","rate","payout","paid","money"],
+  monthly: ["month","4","weeks","cycle"],
+  requirements: ["requirement","needs","needed","qualification","prerequisite"],
+  training: ["orientation","lesson","course","session"],
+  install: ["setup","installation","installing"],
+  time: ["hours","schedule","shift","duration"],
+  apply: ["hiring","join","start","application","enroll"],
+  contact: ["inquiry","email","facebook","social","reached","reach","inquiries"],
+  xfinite: ["xf", "xfnite", "project", "label", "labeling"],
+  melinda: ["dr", "doc", "doctor", "william", "willingham", "pediatrician", "physician", "pedia", "mel", "mely"],
+  clients: ["client", "customer", "partner", "user", "service"],
+};
 
 /* ================= NORMALIZATION ================= */
 
 function normalize(text: string) {
   return text
     .toLowerCase()
-    .replace(/[$]/g, " dollar ")
-    .replace(/[0-9]+/g, n => ` ${n} `)
     .replace(/[^\w\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -39,38 +53,21 @@ const STOPWORDS = new Set([
 ]);
 
 function meaningful(tokens: string[]) {
-  return tokens.filter(t => !STOPWORDS.has(t) && t.length > 2);
-}
-
-/* ================= SEMANTIC SYNONYMS ================= */
-
-const MEANING: Record<string,string[]> = {
-  pay: ["salary","income","earn","earnings","rate","payout","paid","money"],
-  monthly: ["month","4","weeks","cycle"],
-  requirements: ["requirement","needs","needed","qualification","prerequisite"],
-  training: ["orientation","lesson","course","session"],
-  install: ["setup","installation","installing"],
-  time: ["hours","schedule","shift","duration"],
-};
-
-function expandMeaning(tokens: string[]) {
-  const expanded = new Set(tokens);
-
-  for (const token of tokens) {
-    for (const key in MEANING) {
-      if (MEANING[key].includes(token)) expanded.add(key);
-      if (token === key) MEANING[key].forEach(w => expanded.add(w));
-    }
-  }
-
-  return [...expanded];
+  return tokens.filter(t => !STOPWORDS.has(t.toLowerCase()) && t.length >= 2);
 }
 
 /* ================= SIMILARITY ================= */
 
 function similarity(a: string, b: string) {
   if (a === b) return 1;
-  if (a.includes(b) || b.includes(a)) return 0.85;
+  
+  // Fuzzy inclusion check
+  if (a.includes(b) || b.includes(a)) {
+    const shorter = a.length < b.length ? a : b;
+    // Only high score if word is substantial or is a prefix
+    if (shorter.length >= 3) return 0.85;
+    if (a.startsWith(b) || b.startsWith(a)) return 0.85;
+  }
 
   let match = 0;
   for (let i = 0; i < Math.min(a.length,b.length); i++) {
@@ -93,7 +90,7 @@ function scoreItem(item: KBItem, queryTokens: string[]) {
   let bestSentenceScore = 0;
 
   for (const s of allSentences) {
-    const words = tokenize(s);
+    const words = meaningful(tokenize(s));
     let score = 0;
 
     for (const q of queryTokens) {
@@ -109,14 +106,28 @@ function scoreItem(item: KBItem, queryTokens: string[]) {
     bestSentenceScore = Math.max(bestSentenceScore, score);
   }
 
-  // small title hint only
+  // Brand boost: if query contains source name
+  if (queryTokens.includes(item.source)) {
+    bestSentenceScore += 50;
+  }
+
+  // Explicit check for common keywords in content
+  for (const q of queryTokens) {
+    if (q === "melinda" && item.source === "melinda") bestSentenceScore += 10;
+    if (q === "xfinite" && item.source === "xfinite") bestSentenceScore += 10;
+    if (q === "clients" && item.source === "clients") bestSentenceScore += 10;
+  }
+
+  // title hint
   const title = normalize(item.title);
   for (const q of queryTokens) {
-    if (title.includes(q)) bestSentenceScore += 2;
+    if (title.includes(q)) bestSentenceScore += 5;
+    if (q === item.source) bestSentenceScore += 10;
   }
 
   return bestSentenceScore;
 }
+
 
 /* ================= RETRIEVER ================= */
 
@@ -134,14 +145,14 @@ export function retrieveContext(query: string, forcedTopic?: string) {
     ];
   }
 
-  const ranked = candidates
+    const ranked = candidates
     .map(item => ({
       item,
       score: scoreItem(item, tokens)
     }))
-    .filter(r => r.score > 4)
+    .filter(r => r.score > 0)
     .sort((a,b)=>b.score-a.score)
-    .slice(0,6);
+    .slice(0,10);
 
   if (!ranked.length)
     return { context: "NO_CONTEXT_FOUND" };
@@ -158,4 +169,17 @@ export function retrieveContext(query: string, forcedTopic?: string) {
     context: ranked.map(r => `${r.item.title}: ${r.item.content}`).join("\n"),
     detectedTopic
   };
+}
+
+function expandMeaning(tokens: string[]) {
+  const expanded = new Set(tokens);
+
+  for (const token of tokens) {
+    for (const key in MEANING) {
+      if (MEANING[key].includes(token)) expanded.add(key);
+      if (token === key) MEANING[key].forEach(w => expanded.add(w));
+    }
+  }
+
+  return [...expanded];
 }

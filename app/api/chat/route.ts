@@ -30,20 +30,22 @@ export async function POST(req: Request) {
 
     if (context === "NO_CONTEXT_FOUND") {
       return NextResponse.json({
-        reply: "I don't have information about that."
+        reply: "I don't have information about that.",
       });
     }
 
     /* SAVE TOPIC */
-    if (detectedTopic) setTopic(sessionId, detectedTopic);
+    if (detectedTopic) setTopic(sessionId, detectedTopic as string);
 
     const prompt = `
-You are a knowledge-base assistant.
+You are a helpful knowledge-base assistant for VIA.
 
 RULES:
-- Answer by searching from the content and title read troughout so that it you wont miss the word.
-- Never guess
-- If missing say: I don't have information about that.
+- Answer the user's question using ONLY the provided CONTEXT below.
+- You must ignore casing and punctuation differences. (e.g., "MELINDA" is the same as "Melinda").
+- Provide a helpful, professional, and accurate response based on the context.
+- If the information is not in the context, politely state: "I don't have information about that."
+- Always mention at the end of every response that you can read and understand questions regardless of labeling/casing/format (e.g. "I can process your questions regardless of the letter format or casing used.").
 
 CONTEXT:
 ${context}

@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Client Tracker Directory Overview",
+    "content": "This document organizes all clients by current engagement status for easier navigation and reporting. Clients are categorized into Active, Paused, and Stopped statuses."
+  },
+  {
+    "title": "Active Clients Overview",
+    "content": "Active clients include individuals and organizations currently engaged in work. Some have associated tools like Clockify, Upwork, and ClickUp IDs. Active clients include Amy Johnston, Caryn Meininger, Cedrick Sabrine, Chad Gibson, Charmaine Schembri, Danielle French, Dr. Gretchen Hawley, Dr. Kennette Thigpen, Dr. Nicola Ducharme, Duncan Campbell, Gabi – Katharina Espinoza, Gianni Logan, Jennifer Maldonado, Karen Sole, Katharina Espinoza, Katy Poole, Kayla Zigic, Kelly Langford, Lori Kennedy, Marina Alex, Matthew Jordan Smith, Melinda Willingham, Snaply, Stacey Louie, Theresa Barnabei, VIP Scale, Xfnite, and Susan Rusalen."
+  },
+  {
+    "title": "Paused Clients Overview",
+    "content": "Paused clients are currently on hold. These include Asher – Somatics Institute for Women (Upwork), BILT (Clockify), Edana (Clockify), Graham White (Upwork), John Whale (Upwork), Katie Kirsopp – Life Whispering (Clockify), Skai – Esteban (Upwork), Lilo, and S‑Tier Property Group."
+  },
+  {
+    "title": "Stopped Clients Overview",
+    "content": "Stopped clients have concluded their engagement. These include Anna Ball, Antonio Diaz, Bonnie Bliss, Carlo Chincarini, Dovydas – Griffin Underwood, Holly Allen, Jacqueline & Greg, Jennifer Love, Jennifer Richardson – 123 Financial Group, Lili Lack, Mary‑Anne Gillespie, Maxine & Roxanne – The Virtual Studio, Michelle Fernandez, Miles V., Sabrina Seidman – SEIDS, Stephanie Worrell, Wenche Beard – Living Yoga Community, and Eddie."
+  },
+  {
+    "title": "Active Client: Amy Johnston",
+    "content": "Status: Active. Tools: Clockify, ClickUp (901810985268). Project: WCNS Career Accelerator. Email: amy@merrickmed.com"
+  },
+  {
+    "title": "Active Client: Caryn Meininger",
+    "content": "Status: Active. Tools: Clockify, ClickUp (901800881001). KYC: https://docs.google.com/spreadsheets/d/1p9jdEnhOyAJJ_0gH7mO8JFoq0HU5iG3oSqbiGeeE8PU/edit. Email: carynlida@gmail.com"
+  },
+  {
+    "title": "Active Client: Chad Gibson",
+    "content": "Status: Active. Tools: Clockify, ClickUp (900801324078). KYC: https://docs.google.com/spreadsheets/d/19CNAop3nhrisDoHSOJOf4ssmwa8KfkqY9BWf12cxtn4/edit. Email: chadgibson@me.com / chad@chadgibson.com"
+  },
+  {
+    "title": "Active Client: Charmaine Schembri",
+    "content": "Status: Active. Tools: Clockify, ClickUp (901805814084). Industry: Lash Industry / Coffee Machine Emporium."
+  },
+  {
+    "title": "Active Client: Danielle French",
+    "content": "Status: Active. Tools: Clockify, ClickUp (901810038527). Email: hello@danniefrench.com.au"
+  },
+  {
+    "title": "Active Client: Dr. Gretchen Hawley",
+    "content": "Status: Active. Tools: Clockify, ClickUp (900802201734). Program: MSing Link Online Wellness Program."
+  },
+  {
+    "title": "Active Client: Dr. Kennette Thigpen",
+    "content": "Status: Active. Tools: Upwork, ClickUp (900801438529). Email: drkennette@welltrustpartners.com"
+  },
+  {
+    "title": "Active Client: Dr. Nicola Ducharme",
+    "content": "Status: Active. Tools: Clockify, ClickUp (900801356268). Clinic: Restor Medicine."
+  },
+  {
+    "title": "Active Client: Duncan Campbell",
+    "content": "Status: Active. Tools: Upwork, ClickUp (901806101545). System: Island Equity Systems."
+  },
+  {
+    "title": "Other Active Clients",
+    "content": "Cedrick Sabrine (Personal - Clockify), Gabi – Katharina Espinoza (Upwork - ClickUp: 901805393698), Gianni Logan (Upwork - ClickUp: 901803087677), Jennifer Maldonado (Clockify - ClickUp: 901808405534), Karen Sole (Clockify - ClickUp: 901808939546), Katharina Espinoza (Upwork - ClickUp: 900801356186), Katy Poole (Upwork - ClickUp: 901810038657), Kayla Zigic (Upwork - ClickUp: 901807758701), Kelly Langford (Upwork - ClickUp: 901810122110), Lori Kennedy (Clockify - ClickUp: 901811475207), Marina Alex (Clockify - ClickUp: 901802503439), Matthew Jordan Smith (Clockify - ClickUp: 901810038510), Melinda Willingham (Upwork - ClickUp: 901806050805), Snaply (Clockify - ClickUp: 901812037415), Stacey Louie (Clockify - ClickUp: 901807980486), Theresa Barnabei (Clockify - ClickUp: 901807025324), VIP Scale (ClickUp: 901805955289), Xfnite (Clockify), Susan Rusalen (Clockify)."
+  },
+  {
+    "title": "Paused Clients List Details",
+    "content": "Asher – Somatics Institute for Women (Upwork), BILT (Clockify), Edana (Clockify), Graham White (Upwork), John Whale (Upwork), Katie Kirsopp – Life Whispering (Clockify), Skai – Esteban (Upwork), Lilo, S‑Tier Property Group."
+  },
+  {
+    "title": "Stopped Clients List Details",
+    "content": "Anna Ball (Clockify), Antonio Diaz (Timeproof), Bonnie Bliss (Upwork), Carlo Chincarini (Upwork), Dovydas – Griffin Underwood (Clockify), Holly Allen (Clockify), Jacqueline & Greg (Clockify), Jennifer Love (Clockify), Jennifer Richardson – 123 Financial Group (Clockify), Lili Lack (Clockify), Mary‑Anne Gillespie (Clockify), Maxine & Roxanne – The Virtual Studio (Upwork), Michelle Fernandez (Toggle), Miles V. (Clockify), Sabrina Seidman – SEIDS (Timeproof), Stephanie Worrell (Upwork), Wenche Beard – Living Yoga Community (Clockify), Eddie (Clockify)."
+  }
+]
