@@ -1,151 +1,164 @@
-import melinda from "@/app/data/melinda.json";
-import xfinite from "@/app/data/xfinite.json";
+import fs from "fs";
+import path from "path";
+
+/* ================= LOAD KNOWLEDGE BASE (SERVER SAFE) ================= */
+
+function loadJSON(file: string) {
+  const filePath = path.join(process.cwd(), "app/data", file);
+  const raw = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(raw);
+}
+
+const melinda = loadJSON("melinda.json");
+const xfinite = loadJSON("xfinite.json");
 
 type KBItem = {
-title: string;
-content: string;
-source: string;
+  title: string;
+  content: string;
+  source: string;
 };
 
-/* ---------------- BUILD KB ---------------- */
+/* ================= BUILD KB ================= */
 
 const KB: KBItem[] = [
-...melinda.map(x => ({ ...x, source: "melinda" })),
-...xfinite.map(x => ({ ...x, source: "xfinite" })),
+  ...melinda.map((x: any) => ({ ...x, source: "melinda" })),
+  ...xfinite.map((x: any) => ({ ...x, source: "xfinite" })),
 ];
 
-/* ---------------- TEXT NORMALIZATION ---------------- */
+/* ================= TEXT NORMALIZATION ================= */
 
 function normalize(text: string) {
-return text
-.toLowerCase()
-.replace(/[^\w\s]/g, " ")
-.replace(/\s+/g, " ")
-.trim();
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function tokenize(text: string) {
-return normalize(text).split(" ");
+  return normalize(text).split(" ");
 }
 
-/* ---------------- STOPWORDS ---------------- */
+/* ================= STOPWORDS ================= */
 
 const STOPWORDS = new Set([
-"what","is","are","the","a","an","do","you","know","about","tell","me",
-"can","i","how","to","of","for","in","on","at","with","and","or"
+  "what","is","are","the","a","an","do","you","know","about","tell","me",
+  "can","i","how","to","of","for","in","on","at","with","and","or"
 ]);
 
 function meaningfulTokens(tokens: string[]) {
-return tokens.filter(t => !STOPWORDS.has(t) && t.length > 2);
+  return tokens.filter(t => !STOPWORDS.has(t) && t.length > 2);
 }
 
-/* ---------------- SYNONYMS ---------------- */
+/* ================= SYNONYMS ================= */
 
 const SYNONYMS: Record<string,string[]> = {
-requirements: ["requirement","req","reqs","needs","needed","qualifications","prerequisite"],
-apply: ["apply","application","join","register","enroll","signup"],
-training: ["training","orientation","lesson","course","tutorial"],
-pay: ["salary","income","earnings","rate","payment"],
-hours: ["time","schedule","shift","workload"],
+  requirements: ["requirement","req","reqs","needs","needed","qualifications","prerequisite"],
+  apply: ["apply","application","join","register","enroll","signup"],
+  training: ["training","orientation","lesson","course","tutorial"],
+  pay: ["salary","income","earnings","rate","payment"],
+  hours: ["time","schedule","shift","workload"],
 };
 
 function expandQuery(tokens: string[]) {
-const expanded = new Set(tokens);
+  const expanded = new Set(tokens);
 
-for (const token of tokens) {
-for (const key in SYNONYMS) {
-if (SYNONYMS[key].includes(token)) {
-expanded.add(key);
-}
-}
+  for (const token of tokens) {
+    for (const key in SYNONYMS) {
+      if (SYNONYMS[key].includes(token)) {
+        expanded.add(key);
+      }
+    }
+  }
+
+  return [...expanded];
 }
 
-return [...expanded];
-}
-
-/* ---------------- FUZZY MATCH ---------------- */
+/* ================= FUZZY MATCH ================= */
 
 function similarity(a: string, b: string) {
-if (a === b) return 1;
-if (a.includes(b) || b.includes(a)) return 0.8;
+  if (a === b) return 1;
+  if (a.includes(b) || b.includes(a)) return 0.8;
 
-let matches = 0;
-for (let i = 0; i < Math.min(a.length, b.length); i++) {
-if (a[i] === b[i]) matches++;
-}
-return matches / Math.max(a.length, b.length);
+  let matches = 0;
+  for (let i = 0; i < Math.min(a.length, b.length); i++) {
+    if (a[i] === b[i]) matches++;
+  }
+
+  return matches / Math.max(a.length, b.length);
 }
 
-/* ---------------- SCORING ---------------- */
+/* ================= SCORING ================= */
 
 function scoreItem(item: KBItem, queryTokens: string[]) {
-const text = normalize(item.title + " " + item.content);
-const words = text.split(" ");
 
-let score = 0;
+  // IMPORTANT: search BOTH title + body
+  const text = normalize(item.title + " " + item.content);
+  const words = text.split(" ");
 
-for (const q of queryTokens) {
-for (const w of words) {
-const sim = similarity(q, w);
+  let score = 0;
 
-```
-  if (sim > 0.9) score += 12;      // exact
-  else if (sim > 0.75) score += 6; // fuzzy
-  else if (sim > 0.6) score += 3;  // weak
+  for (const q of queryTokens) {
+    for (const w of words) {
+
+      const sim = similarity(q, w);
+
+      if (sim > 0.9) score += 12;      // exact match
+      else if (sim > 0.75) score += 6; // fuzzy match
+      else if (sim > 0.6) score += 3;  // weak match
+
+    }
+  }
+
+  // Title bonus
+  const title = normalize(item.title);
+  for (const q of queryTokens) {
+    if (title.includes(q)) score += 10;
+  }
+
+  return score;
 }
-```
 
-}
-
-// title bonus
-const title = normalize(item.title);
-for (const q of queryTokens) {
-if (title.includes(q)) score += 10;
-}
-
-return score;
-}
-
-/* ---------------- MAIN RETRIEVER ---------------- */
+/* ================= MAIN RETRIEVER ================= */
 
 export function retrieveContext(query: string, forcedTopic?: string) {
 
-const tokens = meaningfulTokens(tokenize(query));
-const expanded = expandQuery(tokens);
+  const tokens = meaningfulTokens(tokenize(query));
+  const expanded = expandQuery(tokens);
 
-let candidates = KB;
+  let candidates = KB;
 
-// if memory topic exists, prioritize it
-if (forcedTopic) {
-candidates = [
-...KB.filter(x => x.source === forcedTopic),
-...KB.filter(x => x.source !== forcedTopic),
-];
-}
+  // If previous topic exists → prioritize it
+  if (forcedTopic) {
+    candidates = [
+      ...KB.filter(x => x.source === forcedTopic),
+      ...KB.filter(x => x.source !== forcedTopic),
+    ];
+  }
 
-const ranked = candidates
-.map(item => ({
-item,
-score: scoreItem(item, expanded),
-}))
-.filter(r => r.score > 8)
-.sort((a,b)=>b.score-a.score)
-.slice(0,6);
+  const ranked = candidates
+    .map(item => ({
+      item,
+      score: scoreItem(item, expanded),
+    }))
+    .filter(r => r.score > 8)
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,6);
 
-if (!ranked.length)
-return { context: "NO_CONTEXT_FOUND" };
+  if (!ranked.length)
+    return { context: "NO_CONTEXT_FOUND" };
 
-/* detect topic */
-const topicCount: Record<string, number> = {};
-for (const r of ranked) {
-topicCount[r.item.source] = (topicCount[r.item.source] || 0) + 1;
-}
+  /* detect topic automatically */
+  const topicCount: Record<string, number> = {};
+  for (const r of ranked) {
+    topicCount[r.item.source] = (topicCount[r.item.source] || 0) + 1;
+  }
 
-const detectedTopic =
-Object.entries(topicCount).sort((a,b)=>b[1]-a[1])[0]?.[0];
+  const detectedTopic =
+    Object.entries(topicCount).sort((a,b)=>b[1]-a[1])[0]?.[0];
 
-return {
-context: ranked.map(r => `${r.item.title}: ${r.item.content}`).join("\n"),
-detectedTopic
-};
+  return {
+    context: ranked.map(r => `${r.item.title}: ${r.item.content}`).join("\n"),
+    detectedTopic
+  };
 }
