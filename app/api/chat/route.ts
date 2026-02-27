@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { retrieveContext } from "@/lib/rag";
 import { askLLM } from "@/lib/llm";
-import { getTopic, setTopic } from "@/lib/memory";
+import { getTopic, setTopic } from "@/lib/chatMemory";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
