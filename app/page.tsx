@@ -13,7 +13,8 @@ type Msg = {
 export default function Home() {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [botStatus, setBotStatus] = useState<"idle" | "waiting" | "seen" | "analyzing" | "typing">("idle");
+  const [lastMessageSeen, setLastMessageSeen] = useState(false);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -22,52 +23,71 @@ export default function Home() {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, loading]);
+  }, [messages, botStatus]);
+
+  const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
   async function sendMessage() {
-    if (!input.trim() || loading) return;
+    if (!input.trim() || botStatus !== "idle") return;
 
     const userText = input;
     setInput("");
-    setLoading(true);
-
     setMessages(prev => [...prev, { role: "user", text: userText }]);
+    setLastMessageSeen(false);
+    
+    // PHASE 1: BEFORE SEEN (30s to 2 mins)
+    setBotStatus("waiting");
+    const waitTime = Math.floor(Math.random() * (120000 - 30000 + 1)) + 30000;
+    // For testing/demo purposes, you might want to adjust these, 
+    // but I am following your exact requirement of 30s - 2min.
+    await sleep(waitTime);
+    
+    // PHASE 2: SEEN NOTICE & ANALYZE (at least 1 min)
+    setLastMessageSeen(true);
+    setBotStatus("analyzing");
+    
+    // Start fetching while "analyzing" to be ready
+    const apiPromise = fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userText }),
+    });
+
+    await sleep(60000); // Analyze for at least 1 min
+    
+    setBotStatus("typing");
 
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userText }),
-      });
+      const res = await apiPromise;
 
-      // If API crashed (500/404 etc)
       if (!res.ok) {
         const txt = await res.text();
         setMessages(prev => [
           ...prev,
-          { role: "assistant", text: `❌ Server error:\n${txt}` },
+          { role: "assistant", text: `❌ ERROR: Brain link severed.\n${txt}` },
         ]);
-        setLoading(false);
+        setBotStatus("idle");
         return;
       }
 
       const data = await res.json();
+      const reply = data.reply ?? `❌ ERROR: Memory corruption.`;
 
-      // ⭐ FIX: use data.reply instead of data.answer
-      const reply =
-        data.reply ??
-        `❌ ERROR:\n${data.error ?? "Unknown error"}`;
+      // PHASE 3: TYPING RESPONSE (Proportional to length)
+      // Approx 30ms per character to simulate typing
+      const typingTime = Math.min(reply.length * 30, 5000); // capped at 5s total to keep it usable
+      await sleep(typingTime);
 
       setMessages(prev => [...prev, { role: "assistant", text: reply }]);
 
     } catch (err: any) {
       setMessages(prev => [
         ...prev,
-        { role: "assistant", text: "❌ Network error: " + err.message },
+        { role: "assistant", text: "❌ Connection error: " + err.message },
       ]);
     }
 
-    setLoading(false);
+    setBotStatus("idle");
   }
 
   function handleKey(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -127,7 +147,7 @@ export default function Home() {
               </div>
               <h2 className="text-4xl font-black mb-4 tracking-tighter italic text-white uppercase">Lia Satella</h2>
               <p className="text-sm max-w-sm mx-auto text-neon/40 leading-relaxed font-mono tracking-tight uppercase">
-                Virtual Assistant
+                Xfinite VA
               </p>
             </div>
           )}
@@ -177,17 +197,28 @@ export default function Home() {
                   )}
                 </div>
               </div>
+              
+              {/* SEEN INDICATOR */}
+              {m.role === "user" && i === messages.length - 1 && lastMessageSeen && (
+                <div className="absolute -bottom-6 right-0 text-[9px] text-neon/30 font-black tracking-widest uppercase italic">
+                  // SEEN_BY_LIA
+                </div>
+              )}
             </div>
           ))}
 
-          {loading && (
+          {botStatus !== "idle" && (
             <div className="flex items-start gap-5">
               <div className="relative w-10 h-10 p-[1.5px] bg-neon/50 rounded-lg rotate-45 animate-pulse shadow-[0_0_20px_rgba(57,255,20,0.4)]" />
               <div className="bg-neon/10 border-l-2 border-neon px-5 py-4 flex gap-2 items-center">
                 <div className="w-1 h-3 bg-neon animate-[bounce_1s_infinite]" />
                 <div className="w-1 h-3 bg-neon animate-[bounce_1s_infinite_0.2s]" />
                 <div className="w-1 h-3 bg-neon animate-[bounce_1s_infinite_0.4s]" />
-                <span className="text-[10px] text-neon uppercase font-black tracking-widest ml-2 opacity-60">Processing...</span>
+                <span className="text-[10px] text-neon uppercase font-black tracking-widest ml-2 opacity-60">
+                  {botStatus === "waiting" && "Lia is AFK..."}
+                  {botStatus === "analyzing" && "seen..."}
+                  {botStatus === "typing" && "Lia is typing..."}
+                </span>
               </div>
             </div>
           )}
@@ -215,7 +246,7 @@ export default function Home() {
 
               <button
                 onClick={sendMessage}
-                disabled={loading || !input.trim()}
+                disabled={botStatus !== "idle" || !input.trim()}
                 className="px-8 py-3 rounded-md bg-neon text-black text-[10px] font-black uppercase tracking-[0.2em] hover:bg-glow disabled:opacity-10 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(57,255,20,0.2)]"
               >
                 SEND
