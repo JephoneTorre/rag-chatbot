@@ -1,6 +1,4 @@
-import melinda from "@/app/data/melinda.json";
 import xfinite from "@/app/data/xfinite.json";
-import clients from "@/app/data/clients.json";
 
 type KBItem = {
   title: string;
@@ -11,9 +9,7 @@ type KBItem = {
 /* ================= BUILD KB ================= */
 
 const KB: KBItem[] = [
-  ...melinda.map(x => ({ ...x, source: "melinda" })),
   ...xfinite.map(x => ({ ...x, source: "xfinite" })),
-  ...clients.map(x => ({ ...x, source: "clients" })),
 ];
 
 const MEANING: Record<string,string[]> = {
@@ -26,8 +22,6 @@ const MEANING: Record<string,string[]> = {
   apply: ["hiring","join","start","application","enroll"],
   contact: ["inquiry","email","facebook","social","reached","reach","inquiries"],
   xfinite: ["xf", "xfnite", "project", "label", "labeling"],
-  melinda: ["dr", "doc", "doctor", "william", "willingham", "pediatrician", "physician", "pedia", "mel", "mely"],
-  clients: ["client", "customer", "partner", "user", "service"],
 };
 
 /* ================= NORMALIZATION ================= */
@@ -113,9 +107,7 @@ function scoreItem(item: KBItem, queryTokens: string[]) {
 
   // Explicit check for common keywords in content
   for (const q of queryTokens) {
-    if (q === "melinda" && item.source === "melinda") bestSentenceScore += 10;
     if (q === "xfinite" && item.source === "xfinite") bestSentenceScore += 10;
-    if (q === "clients" && item.source === "clients") bestSentenceScore += 10;
   }
 
   // title hint

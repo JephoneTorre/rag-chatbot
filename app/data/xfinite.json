@@ -1,77 +1,91 @@
 [
   {
-    "title": "Project Overview/Xfinite",
-    "content": "Xfinite is a building labeling project where workers label roofs and building shapes in satellite maps. Work is flexible and paid per qualified output."
+    "title": "What is Xfinite / Xfnite",
+    "content": "Xfinite (also called Xfnite) is a building labeling project where workers label roofs and building shapes using satellite maps through Bitmappro and Ginger software. Work is flexible and output-based. No interview is required — only training and passing the precourse exam."
   },
   {
-    "title": "Getting Started",
-    "content": "Attend Live Sessions, complete 22 Hands-on Training tasks, join Orientation, then start working on projects."
+    "title": "How to Start / Application Process",
+    "content": "To start working: 1) Like and join the community Facebook group, 2) Take the Precourse Exam, 3) Generate an account, 4) Download required software, 5) Install software, 6) Login to Bitmappro, 7) Attend live training, 8) Complete hands-on training tasks, 9) Start working."
   },
   {
-    "title": "Requirements",
-    "content": "Internet connection (DSL/Fiber/VPN/HTTP Injector/LTE Pocket Wifi or Modem), unlimited data, PC or laptop with mouse, good moral character, analytical skills for building/house shapes. Minimum system: Quad Core, 8GB RAM, Windows 7/10/11."
+    "title": "Precourse Exam",
+    "content": "Applicants must take the Precourse Exam before training. There are no interviews. Passing the exam allows account generation and access to training."
   },
   {
-    "title": "Work Hours",
-    "content": "2-8 hours a day or 10-20 days a month. Must complete 40 hours per month cycle. Hours are flexible."
+    "title": "Account Generation",
+    "content": "After passing the Precourse Exam, generate an account for Bitmappro and Ginger software login. If generation fails, retake the exam."
   },
   {
-    "title": "Rates and Pay",
-    "content": "Base rate is $2 per 800 qualified features. Experienced labelers earn up to $3-$6+ per hour. Payout is every 4 weeks. Salary payment modes are detailed in training."
-  },
-  {
-    "title": "Charges",
-    "content": "Service fee 4%, Management fee P115 ($2), Admin fee 12%."
-  },
-  {
-    "title": "Review Process",
-    "content": "Work is reviewed by Checkers then approved by Judgers."
-  },
-  {
-    "title": "Training Overview",
-    "content": "Training takes 2 days and includes: Pre-course Exam, Live Training Module, Rules and Guidelines, Land Cover Training, and Actual Live Labeling with Pay."
-  },
-  {
-    "title": "Installation Steps",
-    "content": "Go to User Profile. Click Show Password. Get your Ginger ID and Password and save them in a Notepad."
+    "title": "Required Downloads",
+    "content": "Download required software before training: 7-zip, VC-Redists (Visual C++ Runtimes All-in-One), and Ginger Software. These are required to run Bitmappro properly."
   },
   {
     "title": "Software Installation",
-    "content": "Install 7-zip. Extract Visual-C-Runtimes-All-in-One.zip. Open the folder and run Install_all.bat until finished."
+    "content": "Install 7-zip first. Right-click Visual-C-Runtimes-All-in-One.zip → 7-zip → Extract Here → open folder → run Install_all.bat until finished."
+  },
+  {
+    "title": "Get Ginger ID and Password",
+    "content": "Go to User Profile → Click Show Password → Copy Ginger ID and Password → Save in Notepad. These credentials are required for logging into the software."
+  },
+  {
+    "title": "Login to Bitmappro",
+    "content": "Open ginger-2018.exe, enter Ginger ID and Password, update if prompted, restart program, then press arrow down or download icon to start tasks."
+  },
+  {
+    "title": "Training Overview",
+    "content": "Training takes about 2 days and includes Precourse Exam, Live Training Module, Rules and Guidelines, Land Cover Training, and actual paid live labeling."
+  },
+  {
+    "title": "Hands-on Training Requirements",
+    "content": "Before hands-on training: install all software, generate account, attend live session, and read rules and guidelines."
+  },
+  {
+    "title": "Live Session Schedule",
+    "content": "Live training sessions are held at 8:00AM-9:30AM, 10:00AM-11:30AM, and 12:00PM-1:30PM."
+  },
+  {
+    "title": "Work Hours",
+    "content": "Workers can work 2-8 hours per day or 10-20 days per month but must complete at least 40 hours every monthly cycle. Work time is flexible."
+  },
+  {
+    "title": "Rates and Pay",
+    "content": "Base rate is $2 per 800 qualified features. Experienced labelers can earn about $3-$6+ per hour depending on speed and accuracy. Payout occurs every 4 weeks."
+  },
+  {
+    "title": "Fees and Charges",
+    "content": "There is a 4% service fee, P115 management fee, and 12% admin fee deducted from earnings."
+  },
+  {
+    "title": "System Requirements",
+    "content": "Minimum PC requirements: Quad Core CPU, 8GB RAM, Windows 7/10/11, mouse, stable internet (DSL, Fiber, LTE, Pocket WiFi or modem), and unlimited data recommended."
+  },
+  {
+    "title": "Work Review Process",
+    "content": "Submitted work is checked by Checkers and approved by Judgers before being counted as qualified output."
   },
   {
     "title": "Training Videos",
-    "content": "Watch all training videos: Basic Labeling (Basics, Techniques, Switching, Task Overview), 3D and Multilayer Guide (Basic 3D, Drawing Lines, Overview)."
+    "content": "Watch all training videos including Basic Labeling, Techniques, Switching Tasks, 3D Guide, Drawing Lines, and Multilayer labeling."
   },
   {
-    "title": "Live Training Sessions",
-    "content": "Sessions are held at 8:00AM - 9:30AM, 10:00AM - 11:30AM, and 12:00PM - 1:30PM."
-  },
-  {
-    "title": "Login Steps",
-    "content": "Open ginger-2018.exe, enter Ginger ID and Password, update if prompted, restart, press Arrow Down or Download icon to start tasks."
-  },
-  {
-    "title": "Verification",
-    "content": "After Hands-on Training, fill out the Verification Form. Wait for Cedrick Sabrine to verify your account to access the Rules and Guidelines."
+    "title": "Verification After Training",
+    "content": "After finishing hands-on training, fill out the verification form and wait for Cedrick Sabrine to approve access to rules and guidelines."
   },
   {
     "title": "Troubleshooting",
-    "content": "If Bitmappro does not open, wait for registration. If invalid Ginger ID, check spaces and copy from Bitmappro. For install errors: redownload, move to Drive C, disable antivirus, restart WiFi, update Windows."
+    "content": "If Bitmappro does not open wait for registration approval. If Ginger ID invalid check spaces and copy correctly. For installation errors: redownload files, move to drive C, disable antivirus, restart WiFi, update Windows."
   },
   {
-    "title": "Community and Social Media",
-    "content": "Join XF Trainees Facebook group: https://www.facebook.com/groups/xftraining. You can also join the community chat. Subscribe to the YouTube channel for more guides."
-  },
-  {
-    "title": "Application Process",
-    "content": "How to apply: 1. Like the Facebook Page. 2. Share the opportunity. 3. Join the XF Training Facebook group (https://www.facebook.com/groups/xftraining). 4. Subscribe to the YouTube channel. 5. Take the Pre-course Exam."
+    "title": "Community and Support",
+    "content": "Join the XF Trainees Facebook group and community chat for announcements and support. You may contact Cedrick Sabrine directly for concerns."
   },
   {
     "title": "Contact Information",
-    "content": "For inquiries, join the XF Trainees Facebook group: https://www.facebook.com/groups/xftraining. You can also reach out to the management team: Cedrick Sabrine, Ey Dacanay, or Joni Baldon."
+    "content": "Main contact: Cedrick Sabrine. Facebook: https://www.facebook.com/xf.cedrick/"
+  },
+  {
+    "title": "Hiring Information",
+    "content": "Xfnite opens limited slots (around 1,000 trainees). Applicants should apply early to secure a training schedule."
   }
 ]
-      
 
-  
