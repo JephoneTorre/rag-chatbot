@@ -124,9 +124,9 @@ export default function Home() {
                   alt="VIA Logo"
                 />
               </div>
-              <h2 className="text-4xl font-black mb-4 tracking-tighter italic text-white uppercase">Initialize Interface</h2>
+              <h2 className="text-4xl font-black mb-4 tracking-tighter italic text-white uppercase">Lia Satella</h2>
               <p className="text-sm max-w-sm mx-auto text-neon/40 leading-relaxed font-mono tracking-tight uppercase">
-                Awaiting connection...
+                Virtual Assistant
               </p>
             </div>
           )}
