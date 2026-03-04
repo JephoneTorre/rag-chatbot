@@ -4,6 +4,11 @@ export async function askLLM(prompt: string): Promise<string> {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://rag-chatbot-hjqk.vercel.app";
 
+    if (!process.env.OPENROUTER_API_KEY) {
+      console.error("LLM ERROR: OPENROUTER_API_KEY is missing from environment.");
+      return "AI provider error: Missing API Key.";
+    }
+
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -26,6 +31,7 @@ export async function askLLM(prompt: string): Promise<string> {
     const text = await res.text();
 
     if (!res.ok) {
+      console.error("OPENROUTER ERROR STATUS:", res.status);
       console.error("OPENROUTER RAW ERROR:", text);
       return "AI provider error.";
     }

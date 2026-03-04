@@ -15,6 +15,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [botStatus, setBotStatus] = useState<"idle" | "waiting" | "seen" | "analyzing" | "typing">("idle");
   const [lastMessageSeen, setLastMessageSeen] = useState(false);
+  const [lastReplyAt, setLastReplyAt] = useState<number>(0);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -35,14 +36,23 @@ export default function Home() {
     setMessages(prev => [...prev, { role: "user", text: userText }]);
     setLastMessageSeen(false);
     
-    // PHASE 1: BEFORE SEEN (30s to 2 mins)
+    const now = Date.now();
+    const timeSinceLastLiaMsg = now - lastReplyAt;
+    const isLiveConversation = lastReplyAt !== 0 && timeSinceLastLiaMsg < 120000; // 2 minute "live" window
+
+    // DYNAMIC WAIT TIMES
+    // Normal: 30s-2m waiting, 60s analyzing
+    // Live: 5s-15s waiting, 15s analyzing
+    const baseWaitMin = isLiveConversation ? 5000 : 30000;
+    const baseWaitMax = isLiveConversation ? 15000 : 120000;
+    const analyzeTime = isLiveConversation ? 15000 : 60000;
+
+    // PHASE 1: BEFORE SEEN
     setBotStatus("waiting");
-    const waitTime = Math.floor(Math.random() * (120000 - 30000 + 1)) + 30000;
-    // For testing/demo purposes, you might want to adjust these, 
-    // but I am following your exact requirement of 30s - 2min.
+    const waitTime = Math.floor(Math.random() * (baseWaitMax - baseWaitMin + 1)) + baseWaitMin;
     await sleep(waitTime);
     
-    // PHASE 2: SEEN NOTICE & ANALYZE (at least 1 min)
+    // PHASE 2: SEEN NOTICE & ANALYZE
     setLastMessageSeen(true);
     setBotStatus("analyzing");
     
@@ -53,7 +63,7 @@ export default function Home() {
       body: JSON.stringify({ message: userText }),
     });
 
-    await sleep(60000); // Analyze for at least 1 min
+    await sleep(analyzeTime);
     
     setBotStatus("typing");
 
@@ -79,11 +89,13 @@ export default function Home() {
       await sleep(typingTime);
 
       setMessages(prev => [...prev, { role: "assistant", text: reply }]);
+      setLastReplyAt(Date.now());
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
       setMessages(prev => [
         ...prev,
-        { role: "assistant", text: "❌ Connection error: " + err.message },
+        { role: "assistant", text: "❌ Connection error: " + errorMessage },
       ]);
     }
 
@@ -155,7 +167,7 @@ export default function Home() {
           {messages.map((m, i) => (
             <div
               key={i}
-              className={`flex items-start gap-5 ${m.role === "user" ? "flex-row-reverse" : "flex-row"} group`}
+              className={`flex items-start gap-5 ${m.role === "user" ? "flex-row-reverse" : "flex-row"} group relative mb-6`}
             >
               {/* Message Icon */}
               <div className="flex-shrink-0 mt-1">
@@ -200,14 +212,14 @@ export default function Home() {
               
               {/* SEEN INDICATOR */}
               {m.role === "user" && i === messages.length - 1 && lastMessageSeen && (
-                <div className="absolute -bottom-6 right-0 text-[9px] text-neon/30 font-black tracking-widest uppercase italic">
-                  // SEEN_BY_LIA
+                <div className="absolute -bottom-5 right-[60px] text-[10px] text-neon/40 font-bold tracking-tight lowercase">
+                  seen
                 </div>
               )}
             </div>
           ))}
 
-          {botStatus !== "idle" && (
+          {botStatus === "typing" && (
             <div className="flex items-start gap-5">
               <div className="relative w-10 h-10 p-[1.5px] bg-neon/50 rounded-lg rotate-45 animate-pulse shadow-[0_0_20px_rgba(57,255,20,0.4)]" />
               <div className="bg-neon/10 border-l-2 border-neon px-5 py-4 flex gap-2 items-center">
@@ -215,9 +227,7 @@ export default function Home() {
                 <div className="w-1 h-3 bg-neon animate-[bounce_1s_infinite_0.2s]" />
                 <div className="w-1 h-3 bg-neon animate-[bounce_1s_infinite_0.4s]" />
                 <span className="text-[10px] text-neon uppercase font-black tracking-widest ml-2 opacity-60">
-                  {botStatus === "waiting" && "Lia is AFK..."}
-                  {botStatus === "analyzing" && "seen..."}
-                  {botStatus === "typing" && "Lia is typing..."}
+                  Lia is typing...
                 </span>
               </div>
             </div>
@@ -229,27 +239,37 @@ export default function Home() {
 
       {/* INPUT AREA */}
       <div className="sticky bottom-0 z-20 border-t border-neon/20 bg-black/95 backdrop-blur-xl">
-        <div className="max-w-4xl mx-auto px-6 py-8">
+        <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="relative group">
             {/* Outer glow effect */}
-            <div className="absolute -inset-1 bg-neon/20 rounded-xl blur opacity-25 group-focus-within:opacity-50 transition duration-500" />
+            <div className="absolute -inset-1 bg-neon/10 rounded-full blur opacity-25 group-focus-within:opacity-40 transition duration-500" />
             
-            <div className="relative flex items-center gap-3 bg-black border border-neon/30 rounded-lg p-2 shadow-[0_0_30px_rgba(0,0,0,1)] focus-within:border-neon transition-all duration-300">
-              <div className="pl-4 text-neon/40 font-mono text-xs hidden sm:block">Chat {">"}</div>
+            <div className="relative flex items-center gap-2 bg-black/50 border border-neon/20 rounded-full p-1.5 pl-5 shadow-[0_0_30px_rgba(0,0,0,0.5)] focus-within:border-neon/50 focus-within:bg-black transition-all duration-300">
               <input
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKey}
                 placeholder="Ask me anything"
-                className="flex-1 bg-transparent border-none outline-none focus:ring-0 px-2 py-3 text-sm text-neon font-mono placeholder:text-neon/20 caret-neon"
+                className="flex-1 bg-transparent border-none outline-none focus:ring-0 py-2 text-sm text-neon font-mono placeholder:text-neon/20 caret-neon"
               />
 
               <button
                 onClick={sendMessage}
                 disabled={botStatus !== "idle" || !input.trim()}
-                className="px-8 py-3 rounded-md bg-neon text-black text-[10px] font-black uppercase tracking-[0.2em] hover:bg-glow disabled:opacity-10 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(57,255,20,0.2)]"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-neon text-black hover:bg-glow disabled:opacity-20 transition-all duration-300 active:scale-90 shadow-[0_0_15px_rgba(57,255,20,0.3)] group/btn"
+                aria-label="Send message"
               >
-                SEND
+                <svg 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="w-5 h-5 -rotate-12 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                >
+                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg>
               </button>
             </div>
           </div>
