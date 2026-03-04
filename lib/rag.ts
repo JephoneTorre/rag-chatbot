@@ -13,15 +13,15 @@ const KB: KBItem[] = [
 ];
 
 const MEANING: Record<string,string[]> = {
-  pay: ["salary","income","earn","earnings","rate","payout","paid","money"],
+  pay: ["salary","income","earn","earnings","rate","payout","paid","money","cash","salary","payment"],
   monthly: ["month","4","weeks","cycle"],
-  requirements: ["requirement","needs","needed","qualification","prerequisite"],
-  training: ["orientation","lesson","course","session"],
-  install: ["setup","installation","installing"],
-  time: ["hours","schedule","shift","duration"],
-  apply: ["hiring","join","start","application","enroll"],
-  contact: ["inquiry","email","facebook","social","reached","reach","inquiries"],
-  xfinite: ["xf", "xfnite", "project", "label", "labeling"],
+  requirements: ["requirement","needs","needed","qualification","prerequisite","specs","system"],
+  training: ["orientation","lesson","course","session","video","hands-on"],
+  install: ["setup","installation","installing","ginger","software"],
+  time: ["hours","schedule","shift","duration","time"],
+  apply: ["hiring","join","start","application","enroll","slots","register","apply","joining","started"],
+  contact: ["inquiry","email","facebook","social","reached","reach","inquiries","ig","instagram","linkedIn","fb"],
+  xfinite: ["xf", "xfnite", "project", "label", "labeling", "building", "roof", "satellite", "map", "ginger", "bitmappro", "cedrick"],
 };
 
 /* ================= NORMALIZATION ================= */
@@ -113,7 +113,7 @@ function scoreItem(item: KBItem, queryTokens: string[]) {
   // title hint
   const title = normalize(item.title);
   for (const q of queryTokens) {
-    if (title.includes(q)) bestSentenceScore += 5;
+    if (title.includes(q)) bestSentenceScore += 25; // Increased boost for title matches
     if (q === item.source) bestSentenceScore += 10;
   }
 
@@ -144,7 +144,7 @@ export function retrieveContext(query: string, forcedTopic?: string) {
     }))
     .filter(r => r.score > 0)
     .sort((a,b)=>b.score-a.score)
-    .slice(0,10);
+    .slice(0,10); // Increased from 5 to 10 context items
 
   if (!ranked.length)
     return { context: "NO_CONTEXT_FOUND" };

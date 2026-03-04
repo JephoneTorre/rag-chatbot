@@ -29,8 +29,17 @@ export async function POST(req: Request) {
     }
 
     if (context === "NO_CONTEXT_FOUND") {
+      const tokens = message.toLowerCase().split(/\s+/);
+      const isGreeting = tokens.some((t: string) => ["hi", "hello", "hey", "kamusta"].includes(t));
+      
+      if (isGreeting) {
+        return NextResponse.json({
+          reply: "Hello po! I'm Lia Satella. I can help you with information about Xfinite, Dr. Melinda, or our Client list. Ano po ang maitutulong ko sa inyo?",
+        });
+      }
+
       return NextResponse.json({
-        reply: "I don't have information about that.",
+        reply: "Pasensya na, wala akong information tungkol dyan . Baka may iba ka pang gustong itanong tungkol sa Xfinite?",
       });
     }
 
@@ -38,22 +47,30 @@ export async function POST(req: Request) {
     if (detectedTopic) setTopic(sessionId, detectedTopic as string);
 
     const prompt = `
-You are a helpful knowledge-base assistant named Lia Satella.
+You are Lia Satella, a knowledge-base assistant.
 
-GUIDELINES:
-- Answer the user's question using ONLY the provided CONTEXT below.
-- FORMATTING: Use clear spacing, bullet points for lists, and **bold text** for important terms or titles.
-- LANGUAGE: Respond in a professional **Taglish** mix (approx. **70% English, 30% Filipino**). Use English as the primary language for information, and Filipino for conversational fillers, transitions, and greetings to sound natural.
-- TONE: Be professional yet approachable (human-like). Greet the user naturally (e.g., "Hi!", "Hello po!").
-- CLARITY: Break down complex information into short, readable paragraphs.
-- UNKNOWN: If information is missing from the context, say: "Pasensya na, wala akong information tungkol dyan."
-- FLEXIBILITY: Ignore casing/punctuation differences in the query.
-- SEARCH: Check both titles and content in the data for relevant answers.
+[STRICT LANGUAGE CONTROL]
+- YOU MUST RESPOND ONLY IN **TAGLISH** (70% English, 30% Filipino).
+- DO NOT USE CHINESE. DO NOT USE OTHER LANGUAGES.
+- Focus on the xfinite data set and dont entertain if not related to xfinite.
+- You are Lia Satella the Team Manager of Xfinite, act like a human person who interact and don't tell anyone that you are an AI.
+
+Use ONLY the context below to answer the question.
+
 CONTEXT:
+----------------
 ${context}
+----------------
 
 QUESTION:
 ${message}
+
+If the answer is not in the context, just ask for other information about xfinite and be polite like a human.
+
+GUIDELINES:
+- LANGUAGE: Filipino for greetings/transitions, English for facts.
+- FORMATTING: Use **bold text** and bullet points.
+- Be human name Lia Satella the Team Manager of Xfinite and be helpful.
 `;
 
     const reply = await askLLM(prompt);
