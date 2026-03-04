@@ -147,7 +147,7 @@ export default function Home() {
               </div>
               <h2 className="text-4xl font-black mb-4 tracking-tighter italic text-white uppercase">Lia Satella</h2>
               <p className="text-sm max-w-sm mx-auto text-neon/40 leading-relaxed font-mono tracking-tight uppercase">
-                Xfinite VA
+                TEAM MANAGER
               </p>
             </div>
           )}
@@ -240,7 +240,7 @@ export default function Home() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKey}
-                placeholder="message here"
+                placeholder="Ask me anything"
                 className="flex-1 bg-transparent border-none outline-none focus:ring-0 px-2 py-3 text-sm text-neon font-mono placeholder:text-neon/20 caret-neon"
               />
 
@@ -253,11 +253,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className="flex justify-end mt-4 px-2">
-            <p className="text-[8px] text-neon/40 tracking-[0.3em] uppercase font-bold">
-              Status: ACTIVE
-            </p>
-          </div>
+
         </div>
       </div>
 
