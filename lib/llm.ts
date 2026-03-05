@@ -17,7 +17,7 @@ export async function askLLM(prompt: string): Promise<string> {
     if (!res.ok) {
       console.error("N8N ERROR STATUS:", res.status);
       console.error("N8N RAW ERROR:", text);
-      return "AI provider error.";
+      return "Connection disconnected.";
     }
 
     try {
