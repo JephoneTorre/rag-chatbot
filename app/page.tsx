@@ -321,13 +321,6 @@ export default function Home() {
       <div className="p-4 bg-black border-t border-white/5">
         <div className="max-w-4xl mx-auto flex items-center gap-3">
           
-          {/* LEFT ICON (Chevron Neon) */}
-          <button className="text-neon hover:text-glow transition-colors">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
           {/* PILL INPUT */}
           <div className="flex-1 relative flex items-center">
             <input
@@ -337,14 +330,6 @@ export default function Home() {
               placeholder="Aa"
               className="w-full bg-[#262626] text-white rounded-full py-2.5 px-6 outline-none border-none text-[15px] placeholder:text-white/30"
             />
-            
-            {/* SEARCH ICON INSIDE PILL */}
-            <div className="absolute right-4 text-neon opacity-80 cursor-pointer hover:opacity-100">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" strokeWidth="2.5" />
-                <path d="M21 21l-4.35-4.35" strokeWidth="2.5" strokeLinecap="round" />
-              </svg>
-            </div>
           </div>
 
           {/* SEND ICON (AIRPLANE NEON) */}
