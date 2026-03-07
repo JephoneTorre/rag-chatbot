@@ -62,15 +62,7 @@ export default function Home() {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const clearMessages = () => {
-    if (confirm("Gusto mo bang tapusin ang conversation at i-delete ang history?")) {
-      setMessages([]);
-      sessionStorage.removeItem("lia_chat_history");
-      setLastMessageSeen(false);
-      setLastReplyAt(0);
-      setBotStatus("idle");
-    }
-  };
+
 
   async function sendMessage() {
     if (!input.trim() || botStatus !== "idle") return;
@@ -95,7 +87,7 @@ export default function Home() {
 
     const baseWaitMin = isLiveConversation ? 3000 : 10000;
     const baseWaitMax = isLiveConversation ? 7000 : 30000;
-    const analyzeTime = isLiveConversation ? 5000 : 15000;
+    const analyzeTime = isLiveConversation ? 1500 : 4000;
 
     // PHASE 1: BEFORE SEEN (Delivered status)
     setBotStatus("waiting");
@@ -138,7 +130,7 @@ export default function Home() {
       const data = await res.json();
       const reply = data.reply ?? `❌ ERROR: Memory corruption.`;
 
-      const typingTime = Math.min(reply.length * 30, 4000); 
+      const typingTime = Math.min(reply.length * 15, 2000); 
       await sleep(typingTime);
 
       setMessages(prev => [...prev, { 
@@ -195,14 +187,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex gap-4">
-            <button 
-              onClick={clearMessages}
-              className="text-[10px] font-black uppercase tracking-widest bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 px-3 py-1.5 rounded-full transition-all active:scale-95 shadow-[0_0_15px_rgba(239,68,68,0.1)]"
-            >
-              Finish Convo
-            </button>
-          </div>
+
         </div>
       </div>
 
@@ -327,7 +312,7 @@ export default function Home() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
-              placeholder="Aa"
+              placeholder="chat with me"
               className="w-full bg-[#262626] text-white rounded-full py-2.5 px-6 outline-none border-none text-[15px] placeholder:text-white/30"
             />
           </div>
