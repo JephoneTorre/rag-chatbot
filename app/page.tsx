@@ -279,7 +279,7 @@ export default function Home() {
                       )}
                     </div>
                   </div>
-
+  {/* MESSENGER STYLE STATUS INDICATORS */}
                   {/* MESSENGER STYLE STATUS INDICATORS */}
                   {isLastUserMsg && (
                     <div className="mt-1 mr-1 flex flex-col items-end">
