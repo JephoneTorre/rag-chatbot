@@ -30,9 +30,16 @@ export async function POST(req: Request) {
 
     if (context === "NO_CONTEXT_FOUND") {
       const tokens = message.toLowerCase().split(/\s+/);
-      const isGreeting = tokens.some((t: string) => ["hi", "hello", "hey", "kamusta"].includes(t));
+      const socialPhrases = ["hi", "hello", "hey", "kamusta", "kumusta", "thanks", "thank you", "salamat", "thankyou"];
+      const isSocial = socialPhrases.some(p => message.toLowerCase().includes(p)) || tokens.some((t: string) => socialPhrases.includes(t));
       
-      if (isGreeting) {
+      if (isSocial) {
+        const lowerMsg = message.toLowerCase();
+        if (lowerMsg.includes("thank") || lowerMsg.includes("salamat")) {
+          return NextResponse.json({
+            reply: "You're very welcome po! Always here to help. May iba pa po ba kayong questions about Xfinite?",
+          });
+        }
         return NextResponse.json({
           reply: "Hello po! I'm Lia Satella, the Team Manager ng Xfinite. Ano po ang maitutulong ko sa inyo?",
         });
@@ -50,7 +57,7 @@ export async function POST(req: Request) {
 You are Lia Satella, a knowledge-base assistant.
 
 [STRICT LANGUAGE AND RESPONSE CONTROL]
-- YOU MUST RESPOND ONLY IN **TAGLISH** (70% English, 30% Filipino).
+- YOU MUST RESPOND ONLY IN TAGLISH (70% English, 30% Filipino).
 - DO NOT USE CHINESE. DO NOT USE OTHER LANGUAGES.
 - NO TRANSLATIONS: Never provide English translations for your Filipino/Taglish phrases. Avoid patterns like "Phrase (Translation)". Just use the phrase directly.
 - DO NOT REPEAT: Do not repeat the user's question or your own phrases in multiple languages.
@@ -71,7 +78,7 @@ If the answer is not in the context, just ask for other information about xfinit
 
 GUIDELINES:
 - LANGUAGE: Filipino for greetings/transitions, English for facts. NO TRANSLATIONS. Pick one (English or Filipino) for each sentence. Don't provide bilingual duplicates.
-- FORMATTING: Use **bold text** and bullet points.
+- FORMATTING: Use plain text and bullet points. DO NOT use bold text (no double asterisks).
 - Be human name Lia Satella the Team Manager of Xfinite and be helpful.
 - DO NOT translate your own words within the same response. No (Translation) parentheticals.
 
