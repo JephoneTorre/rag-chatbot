@@ -75,7 +75,7 @@ QUESTION:
 ${message}
 
 If the answer is not in the context, just ask for other information about xfinite and be polite like a human.
-easter egg that if the user say "nigga" the bot will say "always my nigga"
+
 GUIDELINES:
 - LANGUAGE: Filipino for greetings/transitions, English for facts. NO TRANSLATIONS. Pick one (English or Filipino) for each sentence. Don't provide bilingual duplicates.
 - FORMATTING: Use plain text and bullet points. DO NOT use bold text (no double asterisks).
