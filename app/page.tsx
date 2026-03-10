@@ -183,7 +183,7 @@ export default function Home() {
               <h1 className="text-lg tracking-tight text-white">Lia Satella</h1>
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 bg-neon rounded-full shadow-[0_0_8px_#39ff14]" />
-                <span className="text-[10px] text-white/50 font-normal uppercase tracking-wider">Active Now</span>
+                <span className="text-[10px] text-white/50 font-normal tracking-wider">Active now</span>
               </div>
             </div>
           </div>
