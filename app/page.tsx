@@ -180,10 +180,10 @@ export default function Home() {
               />
             </div>
             <div>
-              <h1 className="font-bold text-lg tracking-tight text-white">Lia Satella</h1>
+              <h1 className="text-lg tracking-tight text-white">Lia Satella</h1>
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 bg-neon rounded-full shadow-[0_0_8px_#39ff14]" />
-                <span className="text-[10px] text-white/50 font-medium uppercase tracking-wider">Active Now</span>
+                <span className="text-[10px] text-white/50 font-normal uppercase tracking-wider">Active Now</span>
               </div>
             </div>
           </div>
@@ -208,8 +208,8 @@ export default function Home() {
                   alt="VIA Logo"
                 />
               </div>
-              <h2 className="text-2xl font-bold mb-1 text-white">Lia Satella</h2>
-              <p className="text-sm text-white/40 mb-8 uppercase tracking-widest font-bold text-[10px]">Xfinite Team Manager</p>
+              <h2 className="text-2xl mb-1 text-white">Lia Satella</h2>
+              <p className="text-sm text-white/40 mb-8 uppercase tracking-widest text-[10px]">Xfinite Team Manager</p>
               <div className="bg-white/5 rounded-2xl p-6 border border-white/10 max-w-xs">
                 <p className="text-xs text-white/60 leading-relaxed italic">
                   &quot;I&apos;m here to help you with your Xfinite journey po! Tanong lang kayo anytime.&quot;
@@ -229,7 +229,7 @@ export default function Home() {
                   {/* DATE SEPARATOR (Mock logic) */}
                   {(i === 0 || m.timestamp.getDate() !== messages[i-1].timestamp.getDate()) && (
                     <div className="w-full text-center my-6">
-                      <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
+                      <span className="text-[10px] text-white/30 uppercase tracking-[0.2em]">
                         {m.timestamp.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
@@ -249,7 +249,7 @@ export default function Home() {
                         className={`px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed shadow-sm
                         ${
                           m.role === "user"
-                            ? "bg-neon text-black font-bold rounded-tr-sm"
+                            ? "bg-neon text-black rounded-tr-sm"
                             : "bg-[#262626] text-white/90 rounded-tl-sm"
                         }`}
                       >
@@ -273,10 +273,10 @@ export default function Home() {
                           <div className="w-3.5 h-3.5 rounded-full overflow-hidden border border-white/20 shadow-sm opacity-80">
                             <Image src="/icon/via.png" alt="Seen" width={14} height={14} className="object-cover" />
                           </div>
-                          <span className="text-[9px] text-white/30 font-medium lowercase">Seen {formatTime(new Date())}</span>
+                          <span className="text-[9px] text-white/30 font-normal">Seen {formatTime(new Date())}</span>
                         </div>
                       ) : (
-                        <span className="text-[10px] text-white/40 font-bold lowercase tracking-tight">Delivered</span>
+                        <span className="text-[10px] text-white/40 font-normal tracking-tight">Delivered</span>
                       )}
                     </div>
                   )}
@@ -312,7 +312,7 @@ export default function Home() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
-              placeholder="chat with me"
+              placeholder="Chat with me"
               className="w-full bg-[#262626] text-white rounded-full py-2.5 px-6 outline-none border-none text-[15px] placeholder:text-white/30"
             />
           </div>

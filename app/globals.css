@@ -25,6 +25,21 @@ body {
   overflow-x: hidden;
 }
 
+/* Force normal font weight overall */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+.font-bold,
+.font-semibold,
+.font-medium {
+  font-weight: 400 !important;
+}
+
 /* Cyberpunk Scanline Effect */
 .scanline {
   width: 100%;
@@ -66,7 +81,7 @@ body {
 /* Markdown Styling */
 .markdown-content strong {
   color: #ffffff;
-  font-weight: 800;
+  font-weight: 400;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
@@ -74,7 +89,8 @@ body {
   margin-bottom: 1rem;
 }
 
-.markdown-content ul, .markdown-content ol {
+.markdown-content ul,
+.markdown-content ol {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
 }
@@ -86,5 +102,5 @@ body {
 
 .markdown-content li::marker {
   color: var(--neon-green);
-  font-weight: bold;
+  font-weight: normal;
 }
