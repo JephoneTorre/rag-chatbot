@@ -24,7 +24,7 @@ const MEANING: Record<string,string[]> = {
   xfinite: ["xf", "xfnite", "project", "label", "labeling", "building", "roof", "satellite", "map", "ginger", "bitmappro", "cedrick"],
   account: ["generate", "generation", "signup", "sign-up", "registration", "register", "problem", "create"],
   legit: ["scam", "real", "fake", "legitimacy", "safe", "true", "operating", "years", "members"],
-  error: ["failed", "problem", "issue", "doesn't", "working", "invalid", "unable", "cannot", "can't", "fix"],
+  error: ["failed", "problem", "issue", "doesn't", "working", "invalid", "unable", "cannot", "can't", "fix", "open", "opening"],
   display: ["lines", "color", "red", "yellow", "topology", "remove", "delete", "fix"],
 };
 
