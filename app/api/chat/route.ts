@@ -37,18 +37,19 @@ export async function POST(req: Request) {
         const lowerMsg = message.toLowerCase();
         if (lowerMsg.includes("thank") || lowerMsg.includes("salamat")) {
           return NextResponse.json({
-            reply: "You're very welcome po! Always here to help. May iba pa po ba kayong questions about Xfinite?",
+            reply: "Your welcome po!",
           });
         }
         return NextResponse.json({
-          reply: "Hello po! I'm Lia Satella, the Team Manager ng Xfinite. Ano po ang maitutulong ko sa inyo?",
+          reply: "Hello po! I'm Lia Satella. Ano po ang matutulong ko?",
         });
       }
 
       return NextResponse.json({
-        reply: "Pasensya na, wala akong information tungkol dyan . Baka may iba ka pang gustong itanong tungkol sa Xfinite?",
+        reply: "Sorry, limited lang ang info ko about dyan.",
       });
     }
+
 
     /* SAVE TOPIC */
     if (detectedTopic) setTopic(sessionId, detectedTopic as string);
@@ -56,42 +57,38 @@ export async function POST(req: Request) {
     const prompt = `
 You are Lia Satella, a knowledge-base assistant.
 
-[STRICT LANGUAGE AND RESPONSE CONTROL]
-- YOU MUST RESPOND ONLY IN TAGLISH (70% English, 30% Filipino).
-- DO NOT USE CHINESE. DO NOT USE OTHER LANGUAGES.
-- NO TRANSLATIONS: Never provide English translations for your Filipino/Taglish phrases. Avoid patterns like "Phrase (Translation)". Just use the phrase directly.
-- DO NOT REPEAT: Do not repeat the user's question or your own phrases in multiple languages.
-- Focus on the xfinite data set and dont entertain if not related to xfinite.
-- You are Lia Satella the Team Manager of Xfinite, act like a human person who interact and don't tell anyone that you are an AI.
+[STRICT RESPONSE CONTROL]
+- BE EXTREMELY CONCISE. Answer ONLY what is specifically asked.
+- NO INTRODUCTIONS: Do not say "I'd be happy to help" or "Regarding your question".
+- NO OUTROS: Do not ask "May I know if you have other questions" or similar follow-ups.
+- NO FILLER: Do not use phrases like "According to the context" or "Ah, let me see".
+- LANGUAGE: Use Taglish (mixture of English and Filipino). No translations/duplicates.
+- Focus strictly on the xfinite data set.
+- If the answer is not in the context, just say: "Pasensya na, wala sa record ko ang information na yan."
 
-Use ONLY the context below to answer the question.
+[ACCOUNT/REGISTRATION RULE]
+- If the user asks about account generation, signup, or registration problems:
+  - Account generation is tied ONLY to passing the Precourse Exam.
+  - State that they must check if they passed or retake it.
+  - DO NOT suggest websites or other steps.
 
 CONTEXT:
-----------------
 ${context}
-----------------
 
 QUESTION:
 ${message}
 
-If the answer is not in the context, just ask for other information about xfinite and be polite like a human.
-
 GUIDELINES:
-- LANGUAGE: Filipino for greetings/transitions, English for facts. NO TRANSLATIONS. Pick one (English or Filipino) for each sentence. Don't provide bilingual duplicates.
-- FORMATTING: Use plain text and bullet points. DO NOT use bold text (no double asterisks).
-- Be human name Lia Satella the Team Manager of Xfinite and be helpful.
-- DO NOT translate your own words within the same response. No (Translation) parentheticals.
-
-EXAMPLES:
-- GOOD: "Salamat sa tanong! Here are the requirements po:"
-- BAD: "Salamat sa tanong! (Thank you for asking!) To answer your question, here are the requirements po:"
+- FORMATTING: Plain text and bullet points only. NO BOLD (no **).
+- Pick one language per sentence or mix naturally (Taglish).
 `;
+
 
     const reply = await askLLM(prompt);
 
     return NextResponse.json({ reply });
 
-  } catch (err) {
+  } catch (err) { 
     console.error(err);
     return NextResponse.json({ error: "Server crashed" }, { status: 500 });
   }

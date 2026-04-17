@@ -22,7 +22,9 @@ const MEANING: Record<string,string[]> = {
   apply: ["hiring","join","start","application","enroll","slots","register","apply","joining","started"],
   contact: ["inquiry","email","facebook","social","reached","reach","inquiries","ig","instagram","linkedIn","fb"],
   xfinite: ["xf", "xfnite", "project", "label", "labeling", "building", "roof", "satellite", "map", "ginger", "bitmappro", "cedrick"],
+  account: ["generate", "generation", "signup", "sign-up", "registration", "register", "problem", "create"],
 };
+
 
 /* ================= NORMALIZATION ================= */
 

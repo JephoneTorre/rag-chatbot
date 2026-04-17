@@ -1,153 +1,74 @@
 [
-    {
-      "title": "Project Overview",
-      "content": "Xfnite is a building labeling project where workers label roofs and building shapes in satellite maps. Work is flexible and paid per qualified output."
-    },
-    {
-      "title": "Getting Started",
-      "content": "Attend Live Sessions, complete 22 Hands-on Training tasks, join Orientation, then start working on projects."
-    },
-    {
-      "title": "Requirements",
-      "content": "Internet connection (DSL/Fiber/VPN/HTTP Injector/LTE Pocket Wifi or Modem), unlimited data, PC or laptop with mouse, good moral character, analytical skills for building/house shapes."
-    },
-    {
-      "title": "Work Hours",
-      "content": "2-8 hours a day or 10-20 days a month. Must complete 40 hours per month cycle. Hours are flexible."
-    },
-    {
-      "title": "Rates and Pay",
-      "content": "Base rate is $2 per 800 qualified features. Experienced labelers earn up to $3-$6+ per hour. Payout is every 4 weeks."
-    },
-    {
-      "title": "Charges",
-      "content": "Service fee 4%, Management fee P115 ($2), Admin fee 12%."
-    },
-    {
-      "title": "Review Process",
-      "content": "Work is reviewed by Checkers then approved by Judgers."
-    },
-    {
-      "title": "Training Overview",
-      "content": "Training takes 2 days and includes: Pre-course Exam, Live Training Module, Rules and Guidelines, Land Cover Training, and Actual Live Labeling with Pay."
-    },
-    {
-      "title": "Installation Steps",
-      "content": "Go to User Profile. Click Show Password. Get your Ginger ID and Password and save them in a Notepad."
-    },
-    {
-      "title": "Software Installation",
-      "content": "Install 7-zip. Extract Visual-C-Runtimes-All-in-One.zip. Open the folder and run Install_all.bat until finished."
-    },
-    {
-      "title": "Training Videos",
-      "content": "Watch all training videos to be equipped for Hands-on Training: Basic Labeling guide (Part 1: Labeling Basics, Part 2: Techniques, Part 3: Switching, Part 4: Task Overview), 3D and Multilayer guide (Part 1: Basic 3D Guide, Part 2: How to draw 3D Lines, Part 3: 3D Overview)."
-    },
-    {
-      "title": "Live Training Sessions",
-      "content": "Attend live training sessions at 8:00AM - 9:30AM, 10:00AM - 11:30AM, and 12:00PM - 1:30PM."
-    },
-    {
-      "title": "Login Steps",
-      "content": "Open ginger-2018.exe, enter Ginger ID and Password from Notepad, update if prompted, restart, press Arrow Down or Download icon to start tasks."
-    },
-    {
-      "title": "Verification",
-      "content": "After Hands-on Training, fill out the Verification Form. Wait for Cedrick Sabrine to verify your account to access the Rules and Guidelines."
-    },
-    {
-      "title": "Troubleshooting",
-      "content": "If Bitmappro does not open, wait for registration. If invalid Ginger ID, check spaces and copy from Bitmappro. For installation errors, redownload files, move them to Drive C, disable antivirus, restart WiFi, and update Windows."
-    },
-    {
-      "title": "Community",
-      "content": "Join XF Trainees Facebook group and community chat. Refer to the Answer Key document for guidance."
-    },
-    {
-      "title": "Additional Resources",
-      "content": "Join our Facebook group for XF Trainees: https://www.facebook.com/groups/xftraining. Refer to the Answer Key Document for additional guides."
-    }
-    ,
-        {
-          "title": "Project Overview",
-          "content": "Xfnite is a building labeling project where workers label roofs and building shapes in satellite maps. Work is flexible and paid per qualified output."
-        },
-        {
-          "title": "Getting Started",
-          "content": "Attend Live Sessions, complete 22 Hands-on Training tasks, join Orientation, then start working on projects."
-        },
-        {
-          "title": "Requirements",
-          "content": "Internet connection (DSL/Fiber/VPN/HTTP Injector/LTE Pocket Wifi or Modem), unlimited data, PC or laptop with mouse, good moral character, analytical skills for building/house shapes."
-        },
-        {
-          "title": "Work Hours", 
-          "content": "2-8 hours a day or 10-20 days a month. Must complete 40 hours per month cycle. Hours are flexible."
-        },
-        {
-          "title": "Rates and Pay",
-          "content": "Base rate is $2 per 800 qualified features. Experienced labelers earn up to $3-$6+ per hour. Payout is every 4 weeks."
-        },
-        {
-          "title": "Charges",
-          "content": "Service fee 4%, Management fee P115 ($2), Admin fee 12%."
-        },
-        {
-          "title": "Review Process",
-          "content": "Work is reviewed by Checkers then approved by Judgers."
-        },
-        {
-          "title": "Training Overview",
-          "content": "Training takes 2 days and includes: Pre-course Exam, Live Training Module, Rules and Guidelines, Land Cover Training, and Actual Live Labeling with Pay."
-        },
-        {
-          "title": "Installation Steps",
-          "content": "Go to User Profile. Click Show Password. Get your Ginger ID and Password and save them in a Notepad."
-        },
-        {
-          "title": "Software Installation",
-          "content": "Install 7-zip. Extract Visual-C-Runtimes-All-in-One.zip. Open the folder and run Install_all.bat until finished."
-        },
-        {
-          "title": "Training Videos",
-          "content": "Basic Labeling: Part 1 Labeling Basics, Part 2 Techniques, Part 3 Switching, Part 4 Task Overview. 3D Guide: Part 1 Basic 3D, Part 2 Draw 3D Lines, Part 3 Overview."
-        },
-        {
-          "title": "Live Training Sessions",
-          "content": "8:00AM - 9:30AM, 10:00AM - 11:30AM, 12:00PM - 1:30PM."
-        },
-        {
-          "title": "Login Steps",
-          "content": "Open ginger-2018.exe, enter Ginger ID and Password from notepad, update if prompted, restart, press Arrow Down or Download icon to start tasks."
-        },
-        {
-          "title": "Verification",
-          "content": "After Hands-on Training, fill out the Verification Form. Wait for Cedrick Sabrine to verify your account to access the Rules and Guidelines."
-        },
-        {
-          "title": "Troubleshooting",
-          "content": "If Bitmappro does not open, wait for registration. If invalid Ginger ID, check spaces and copy from Bitmappro. For install errors, redownload, move to Drive C, disable antivirus, restart WiFi, update Windows."
-        },
-        {
-          "title": "Community",
-          "content": "Join XF Trainees Facebook group and community chat. Refer to the Answer Key document for guidance."
-        },
-        {
-          "title": "Additional Resources or the link for the facebook group",
-          "content": "Join our Facebook group for XF Trainees: https://www.facebook.com/groups/xftraining. Refer to the Answer Key Document for additional guides."
-        },
-        {
-          "title": "Xfnite Full Training & Application Info",
-          "content": "Welcome to Xfnite! Hiring 400 slots only. Training starts December 1, 2025. Steps: 01 Attend Live Session, 02 Take Hands-on Training, 03 Join Orientation, 04 Start Working. Requirements: Internet, unlimited data, PC/laptop, good moral character, building shape analysis skills. Minimum system: Quad Core, 8GB RAM, Windows 7/10/11. Work Hours: 2-8 hours/day, 10-20 days/month. Rates: $2 per 800 features, up to $3-$6+/hour. Time monitoring, charges, review process, training phases 1-5, expected income, and modes of salary payment detailed. Follow application steps: Like FB Page, share opportunity, join training FB group, subscribe YouTube channel, take Precourse Exam."
-        }
-        , 
-        {
-            "title": "Part of the company, management, employees, and workers, owners.",
-            "content": "Cedrick Sabrine, Ey Dacanay, Joni Baldon, and other employees of the company."
-          }
-  
-          
-      ]
-      
-
-  
+  {
+    "title": "Project Overview",
+    "content": "Xfnite is a building labeling project where workers label roofs and building shapes using satellite maps. Work is flexible and output-based."
+  },
+  {
+    "title": "How to Apply",
+    "content": "To apply: Attend a Live Session, complete Hands-on Training tasks, join Orientation, and then start working."
+  },
+  {
+    "title": "Hiring Information",
+    "content": "Xfnite has limited hiring slots. Applicants must complete training before being allowed to work."
+  },
+  {
+    "title": "Requirements",
+    "content": "You need a stable internet connection, unlimited data, a PC or laptop with a mouse, and the ability to analyze building shapes."
+  },
+  {
+    "title": "System Requirements",
+    "content": "Minimum system requirements include a quad-core processor, 8GB RAM, and Windows 7, 10, or 11."
+  },
+  {
+    "title": "Work Hours",
+    "content": "Work is flexible. You can work 2 to 8 hours per day or 10 to 20 days per month, with a required minimum of 40 hours per monthly cycle."
+  },
+  {
+    "title": "Salary and Pay",
+    "content": "The base rate is $2 per 800 qualified features. Experienced workers can earn around $3 to $6 or more per hour. Payments are released every 4 weeks."
+  },
+  {
+    "title": "Charges and Fees",
+    "content": "Fees include a 4% service fee, ₱115 management fee, and 12% admin fee."
+  },
+  {
+    "title": "Training Process",
+    "content": "Training takes around 2 days and includes a Pre-course Exam, live training sessions, rules and guidelines, and actual labeling tasks."
+  },
+  {
+    "title": "Training Videos",
+    "content": "Training includes basic labeling (basics, techniques, switching, overview) and 3D labeling (basic 3D, drawing lines, overview)."
+  },
+  {
+    "title": "Training Schedule",
+    "content": "Live training sessions are available throughout the day, from morning to late evening."
+  },
+  {
+    "title": "How to Install",
+    "content": "Install 7-Zip, extract Visual-C-Runtimes-All-in-One.zip, then run Install_all.bat to complete the setup."
+  },
+  {
+    "title": "How to Login",
+    "content": "Open ginger-2018.exe, enter your Ginger ID and password, update if prompted, restart, then click the download icon to begin tasks."
+  },
+  {
+    "title": "Account Registration",
+    "content": "Accounts are automatically generated after passing the Pre-course Exam. If you cannot register, you need to retake the exam."
+  },
+  {
+    "title": "Verification Process",
+    "content": "After completing training, submit the verification form and wait for approval before accessing full work tasks."
+  },
+  {
+    "title": "Troubleshooting",
+    "content": "If errors occur, redownload files, move them to Drive C, disable antivirus, restart your internet, and update Windows."
+  },
+  {
+    "title": "Community and Support",
+    "content": "Join the XF Trainees Facebook group and community chat for help, updates, and announcements."
+  },
+  {
+    "title": "Workflow Summary",
+    "content": "Process: Pre-course Exam, account generation, software installation, login, training, verification, then start working."
+  }
+]
