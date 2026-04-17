@@ -23,7 +23,11 @@ const MEANING: Record<string,string[]> = {
   contact: ["inquiry","email","facebook","social","reached","reach","inquiries","ig","instagram","linkedIn","fb"],
   xfinite: ["xf", "xfnite", "project", "label", "labeling", "building", "roof", "satellite", "map", "ginger", "bitmappro", "cedrick"],
   account: ["generate", "generation", "signup", "sign-up", "registration", "register", "problem", "create"],
+  legit: ["scam", "real", "fake", "legitimacy", "safe", "true", "operating", "years", "members"],
+  error: ["failed", "problem", "issue", "doesn't", "working", "invalid", "unable", "cannot", "can't", "fix"],
+  display: ["lines", "color", "red", "yellow", "topology", "remove", "delete", "fix"],
 };
+
 
 
 /* ================= NORMALIZATION ================= */

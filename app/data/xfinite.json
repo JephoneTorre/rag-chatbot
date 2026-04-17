@@ -5,8 +5,9 @@
   },
   {
     "title": "How to Apply",
-    "content": "To apply: Attend a Live Session, complete Hands-on Training tasks, join Orientation, and then start working."
+    "content": "To apply: Complete Hands-on Training tasks (Live Sessions are temporarily stopped), join Orientation, and then start working."
   },
+
   {
     "title": "Hiring Information",
     "content": "Xfnite has limited hiring slots. Applicants must complete training before being allowed to work."
@@ -33,42 +34,77 @@
   },
   {
     "title": "Training Process",
-    "content": "Training takes around 2 days and includes a Pre-course Exam, live training sessions, rules and guidelines, and actual labeling tasks."
+    "content": "Training takes around 2 days and includes a Pre-course Exam, rules and guidelines, and actual labeling tasks. Note: Live training sessions are temporarily stopped."
   },
+
   {
     "title": "Training Videos",
     "content": "Training includes basic labeling (basics, techniques, switching, overview) and 3D labeling (basic 3D, drawing lines, overview)."
   },
   {
-    "title": "Training Schedule",
-    "content": "Live training sessions are available throughout the day, from morning to late evening."
+    "title": "#09 Training Schedule and Answer Key",
+    "content": "Live training sessions are currently TEMPORARILY STOPPED. For more guides and self-study materials, please refer to the Answer Key Document."
   },
+
+
   {
     "title": "How to Install",
     "content": "Install 7-Zip, extract Visual-C-Runtimes-All-in-One.zip, then run Install_all.bat to complete the setup."
   },
   {
-    "title": "How to Login",
-    "content": "Open ginger-2018.exe, enter your Ginger ID and password, update if prompted, restart, then click the download icon to begin tasks."
+    "title": "#10 How to Login the Software",
+    "content": "Step 1: Open 'ginger-2018.exe', choose 'Agree', and enter your Ginger ID and Password. If prompted to update, let it finish and restart Ginger. Step 2: Start Hands-on Training by pressing the 'Arrow Down' or Download icon on the upper left."
   },
+
   {
     "title": "Account Registration",
     "content": "Accounts are automatically generated after passing the Pre-course Exam. If you cannot register, you need to retake the exam."
   },
   {
-    "title": "Verification Process",
-    "content": "After completing training, submit the verification form and wait for approval before accessing full work tasks."
+    "title": "#12 Verification Form",
+    "content": "Only fill out the Verification Form if you receive the 'Congratulations' pop-up after downloading a task. If you haven't received it, check for push-backed tasks from checkers and fix them until you get the pop-up."
   },
+
   {
     "title": "Troubleshooting",
     "content": "If errors occur, redownload files, move them to Drive C, disable antivirus, restart your internet, and update Windows."
   },
   {
-    "title": "Community and Support",
-    "content": "Join the XF Trainees Facebook group and community chat for help, updates, and announcements."
+    "title": "#11 Community and Support",
+    "content": "Join the XF Trainees Facebook group at https://www.facebook.com/groups/xftraining and join the community chat for help and updates."
   },
+
   {
     "title": "Workflow Summary",
     "content": "Process: Pre-course Exam, account generation, software installation, login, training, verification, then start working."
+  },
+  {
+    "title": "Cannot Open Bitmappro Account",
+    "content": "Kindly wait for Cedrick to register your account. You may check the status of your account in your Account Generator file."
+  },
+  {
+    "title": "Invalid Ginger ID and Password Error",
+    "content": "Make sure you followed step #04 and double-check for extra spaces. To be sure, copy and paste your Ginger ID and password directly from Bitmappro when logging in."
+  },
+  {
+    "title": "Software Installation Errors",
+    "content": "Redownload all files, make a 'New Folder' under your 'Drive C:', and move all software files there. Temporarily disable your antivirus, restart your WiFi router, and if the error persists, update Windows via settings and restart."
+  },
+  {
+    "title": "Ginger Software Update Failed",
+    "content": "Restart your WiFi router for at least 1 minute, restart your PC, open Control Panel, change the timezone to +8 Singapore."
+  },
+  {
+    "title": "Red and Yellow Lines (Topology Errors)",
+    "content": "These are likely Topology errors. To remove them, fix the errors or redo the label, then press 'CTRL+T'. If the task was pushed back by a checker, some lines may remain but are okay if you follow the checker's comments."
+  },
+  {
+    "title": "Is Xfinite Legit?",
+    "content": "Yes! We have been operating since 2017 with around 6,000 members. We do not collect registration fees, and you are free to stop if you feel this work isn't for you."
+  },
+  {
+
+    "title": "#13 Rules and Guidelines",
+    "content": "After filling out the verification form, you can start the Rules and Guidelines. The link is password-protected. Cedrick Sabrine will provide the password after verifying your account. If he hasn't responded for more than 6 hours, you can message him with a screenshot of your results."
   }
 ]
