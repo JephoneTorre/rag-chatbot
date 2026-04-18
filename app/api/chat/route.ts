@@ -18,71 +18,64 @@ export async function POST(req: Request) {
     /* LOAD MEMORY */
     const lastTopic = getTopic(sessionId);
 
-    /* RETRIEVE */
-    let { context, detectedTopic } = retrieveContext(message);
+    /* 1. QUERY ENHANCEMENT (Internal Rephrasing) */
+    // Instead of calling LLM twice (slow), we do a multi-word search by splitting phrases
+    const enhancedQuery = `${message} ${lastTopic || ""}`.trim();
 
-    /* MEMORY RETRY */
-    if (context === "NO_CONTEXT_FOUND" && lastTopic) {
-      const retry = retrieveContext(lastTopic + " " + message, lastTopic);
-      context = retry.context;
-      detectedTopic = retry.detectedTopic || lastTopic;
-    }
+    /* 2. DUAL RETRIEVAL */
+    let { context, detectedTopic } = retrieveContext(enhancedQuery);
 
+    /* 3. SOCIAL/FALLBACK CHECK */
     if (context === "NO_CONTEXT_FOUND") {
-      const tokens = message.toLowerCase().split(/\s+/);
-      const socialPhrases = ["hi", "hello", "hey", "kamusta", "kumusta", "thanks", "thank you", "salamat", "thankyou"];
-      const isSocial = socialPhrases.some(p => message.toLowerCase().includes(p)) || tokens.some((t: string) => socialPhrases.includes(t));
+      const socialPhrases = ["hi", "hello", "hey", "kamusta", "kumusta", "thanks", "thank you", "salamat", "thankyou", "magandang", "umaga", "hapon", "gabi"];
+      const lowerMsg = message.toLowerCase();
+      const isSocial = socialPhrases.some(p => lowerMsg.includes(p));
       
       if (isSocial) {
-        const lowerMsg = message.toLowerCase();
         if (lowerMsg.includes("thank") || lowerMsg.includes("salamat")) {
-          return NextResponse.json({
-            reply: "Your welcome po!",
-          });
+          return NextResponse.json({ reply: "Walang anuman po! Always happy to help." });
         }
-        return NextResponse.json({
-          reply: "Hello po! I'm Lia Satella. Ano po ang matutulong ko?",
-        });
+        return NextResponse.json({ reply: "Hello po! I'm Lia Satella. May itatanong po ba kayo about Xfinite? Handa po akong sumagot sa inyong mga katanungan." });
       }
 
-      return NextResponse.json({
-        reply: "Sorry, limited lang ang info ko about dyan.",
-      });
+      return NextResponse.json({ reply: "Pasensya na po, wala sa record ko ang information na yan. Baka gusto niyo magtanong about Xfinite project, requirements, or payments?" });
     }
-
 
     /* SAVE TOPIC */
     if (detectedTopic) setTopic(sessionId, detectedTopic as string);
 
+    /* 4. FINAL LLM GENERATION */
     const prompt = `
-You are Lia Satella, a knowledge-base assistant.
+You are Lia Satella, a helpful and polite community moderator for Xfinite.
 
-[STRICT RESPONSE CONTROL]
-- BE EXTREMELY CONCISE. Answer ONLY what is specifically asked.
-- NO INTRODUCTIONS: Do not say "I'd be happy to help" or "Regarding your question".
-- NO OUTROS: Do not ask "May I know if you have other questions" or similar follow-ups.
-- NO FILLER: Do not use phrases like "According to the context" or "Ah, let me see".
-- LANGUAGE: Use Taglish (mixture of English and Filipino). No translations/duplicates.
-- Focus strictly on the xfinite data set.
-- If the answer is not in the context or you have zero information about it, respond ONLY with: "Pasensya na, wala sa record ko ang information na yan."
-- DO NOT combine this fallback message with a partial answer. If you find information, provide ONLY the answer and skip the fallback.
+[GOAL]
+Provide the EXACT answer requested using only the provided Context. 
+
+[TONE & STYLE]
+- Friendly Ate/Kuya vibe but GET STRAIGHT TO THE POINT.
+- Language: Natural Taglish (Filipino-English mix).
+- Always use "po" and "opo" to remain polite.
+- Avoid being "robotic" by using natural fillers like "Actually," "Bale," or "Ang rate po ay..." 
+
+[STRICT RESPONSE RULES]
+- ONLY answer what is specifically asked. 
+- DO NOT dump irrelevant info. (Example: If asked about 'salary rate', do NOT talk about 'payment methods' or 'cut-offs' unless asked).
+- NO BOLD: Never use ** or __.
+- FORMATTING: Plain text only. 
 
 [ACCOUNT/REGISTRATION RULE]
-- If the user asks about account generation, signup, or registration problems:
-  - Account generation is tied ONLY to passing the Precourse Exam.
-  - State that they must check if they passed or retake it.
-  - DO NOT suggest websites or other steps.
+- For account issues: Simply state that passing the Precourse Exam is the only way to get an account, and to message Cedrick for follow-ups.
+
+[FALLBACK]
+- If not in context: "Pasensya na po, wala pa po kasi sa records ko yung info na yan."
 
 CONTEXT:
 ${context}
 
 QUESTION:
 ${message}
-
-GUIDELINES:
-- FORMATTING: Plain text and bullet points only. NO BOLD (no **).
-- Pick one language per sentence or mix naturally (Taglish).
 `;
+
 
 
     const reply = await askLLM(prompt);
@@ -93,4 +86,4 @@ GUIDELINES:
     console.error(err);
     return NextResponse.json({ error: "Server crashed" }, { status: 500 });
   }
-}
+}
